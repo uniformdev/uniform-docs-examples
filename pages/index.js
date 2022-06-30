@@ -1,4 +1,4 @@
-import Layout from "../src/components/Layout";
+import HomeLayout from "../src/components/HomeLayout";
 
 import content from "../lib/content.json";
 
@@ -9,5 +9,5 @@ export async function getStaticProps() {
 }
 
 export default function Home({ fields }) {
-  return <Layout content={content} fields={fields} />;
+  return <HomeLayout content={content} fields={fields} />;
 }
