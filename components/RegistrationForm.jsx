@@ -1,3 +1,5 @@
+import { useUniformContext } from '@uniformdev/context-react';
+import { parse } from 'cookie';
 import React from 'react';
 import { useState } from 'react';
 import Splitter from './Splitter';
@@ -6,8 +8,12 @@ export const RegisterForm = (fields) => {
   const [registered, setRegistered] = useState(
     typeof document !== 'undefined' ? !!document.cookie.match(/unfrmconf_registered/) : false
   );
+  const { context } = useUniformContext();
   const onRegister = () => {
     document.cookie = 'unfrmconf_registered=true; path=/; samesite=lax';
+    context.update({
+      cookies: parse(document.cookie)
+    });
     setRegistered(true);
   };
 

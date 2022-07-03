@@ -1,13 +1,20 @@
 import { Hero } from "../components/Hero";
-import { fetch } from "../lib/cf/fetch";
+import { Personalize } from '@uniformdev/context-react';
+import { fetchVariations } from "../lib/cf/fetch";
 
 export async function getStaticProps() {
-  const fields = await fetch("7FqVTULpTtY0AdOUp4n58g");
-  return { 
-    props: { ...fields }
+  const variations = await fetchVariations("29zgaRj1vU1idUq3ydCQeU");
+  return {
+    props: { variations }
   }
 }
 
-export default function Home(props) {
-  return <Hero {...props} />
+export default function Home({ variations }) {
+  return (
+    <Personalize
+        variations={variations}
+        name="heroPersonalized"
+        component={Hero}
+    />
+  );
 };
