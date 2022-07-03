@@ -9,6 +9,7 @@ import "../styles/personalization.css";
 
 import { UniformContext } from "@uniformdev/context-react";
 import { Context, enableContextDevTools } from "@uniformdev/context";
+import { NextCookieTransitionDataStore } from '@uniformdev/context-next';
 import manifest from "../contextManifest.json";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -21,11 +22,12 @@ const context = new Context({
   plugins: [
     enableContextDevTools(),
   ],
+  transitionStore: new NextCookieTransitionDataStore({}),
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, serverUniformContext }) {
   return (
-    <UniformContext context={context}>
+    <UniformContext context={serverUniformContext ?? context} outputType="edge">
       <Component {...pageProps} />
     </UniformContext>
   );
